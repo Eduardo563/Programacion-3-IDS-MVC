@@ -19,5 +19,13 @@ public class AuthModel {
 		else
 			return false;
 	}
+	
+	public void registro(String usuario,String bio, String preferencias, String  terminos, String colonia ) {
+		System.out.println("Usuario: "+usuario);
+		System.out.println("Biografia: "+bio);
+		System.out.println("Preferencias: "+preferencias);
+		System.out.println("Colonia en la que reside: "+colonia);
+		System.out.println("Aceptacion de Términos: "+terminos);
+	}
 
 }
