@@ -193,9 +193,10 @@ public class AuthView {
 					boolean autenticacion = functions.autenticar(usuario, textContra);
 					if (autenticacion) {
 						JOptionPane.showMessageDialog(null, "Ingreso exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+						home();
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Datos Incorrectos", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
 					}
 						
 				}	
@@ -461,6 +462,30 @@ public class AuthView {
 		frame.revalidate();
 		frame.repaint();
 		
+	}
+	
+	public void home() {
+		frame.getContentPane().removeAll();
+		JPanel home = new JPanel();
+		home.setLayout(null);
+		home.setLocation(100,50);
+		home.setSize(800, 500);
+		home.setOpaque(true);
+		home.setBackground(new Color (227, 227, 227));
+		home.setVisible(true);
+		frame.add(home);
+		
+		
+		//Label para el texto home
+		JLabel etiqueta1 = new JLabel("Home");
+		etiqueta1.setBounds(330, 30, 140, 35);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setFont(Titulo);
+		home.add(etiqueta1);
+		
+		frame.setVisible(true);
+		frame.revalidate();
+		frame.repaint();
 	}
 
 }

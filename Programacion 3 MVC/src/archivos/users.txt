@@ -1,0 +1,3 @@
+Eduardo Rios,edu@alu.uabcs.mx,5678,alumno
+Yonatan Aguirre,yona@alu.uabcs.mx,1234,alumno
+Marco Nuñez,marco@alu.uabcs.mx,9102,alumno
