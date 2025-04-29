@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -22,7 +24,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.border.EmptyBorder;
 
 import models.AuthModel;
 
@@ -64,7 +66,6 @@ public class AuthView {
 		login.setLayout(null);
 		login.setLocation(100, 80);
 		login.setSize(800, 500);
-		//login.setOpaque(true);
 		login.setBackground(Color.WHITE);
 		login.setVisible(true);
 		principal.add(login);
@@ -224,7 +225,7 @@ public class AuthView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				register();
+				register2();
 				
 			}
 			
@@ -487,5 +488,270 @@ public class AuthView {
 		frame.revalidate();
 		frame.repaint();
 	}
+	public void register2() {
+		frame.getContentPane().removeAll();
+		JPanel home;
+		JTextField nombreText;
+		JTextField apellidosText;
+		JTextField empresaTxt;
+		JTextField cargoTxt;
+		JTextField userTxt;
+		JPasswordField contraTxt;
+		JPasswordField contraTxt2;
+		JTextField emailTxt;
+		
+		home = new JPanel();
+		home.setBackground(new Color(31, 104, 69));
+		home.setBorder(new EmptyBorder(5, 5, 5, 5));
+		home.setLayout(null);
+		frame.setContentPane(home);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(200, 22, 634, 619);
+		panel.setVisible(true);
+		panel.setOpaque(true);
+		home.add(panel);
+		
+		JLabel registroLabel = new JLabel("Registro");
+		registroLabel.setFont(new Font("Segoe UI Symbol", Font.BOLD, 20));
+		registroLabel.setBounds(286, 23, 79, 44);
+		panel.add(registroLabel);
+		
+		JLabel apellidos = new JLabel("Apellidos");
+		apellidos.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		apellidos.setBounds(84, 157, 79, 20);
+		panel.add(apellidos);
+		
+		JLabel empresa = new JLabel("Empresa");
+		empresa.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		empresa.setBounds(84, 200, 79, 29);
+		panel.add(empresa);
+		
+		
+		
+		JLabel cargo = new JLabel("Cargo");
+		cargo.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		cargo.setBounds(84, 298, 49, 20);
+		panel.add(cargo);
+		
+		JLabel user = new JLabel("Nombre de Usuario");
+		user.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		user.setBounds(84, 348, 151, 14);
+		panel.add(user);
+		
+		JLabel contra = new JLabel("Contraseña");
+		contra.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		contra.setBounds(84, 400, 93, 14);
+		panel.add(contra);
+		
+		JLabel contraVer = new JLabel("Confirmar Contraseña");
+		contraVer.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		contraVer.setBounds(84, 447, 169, 14);
+		panel.add(contraVer);
+		
+		JLabel email = new JLabel("Correo Electrónico");
+		email.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		email.setBounds(84, 494, 151, 14);
+		panel.add(email);
+		
+		JLabel nombre = new JLabel("Nombre");
+		nombre.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		nombre.setBounds(84, 114, 79, 14);
+		panel.add(nombre);
+		
+		nombreText = new JTextField();
+		nombreText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		nombreText.setBounds(276, 104, 271, 36);
+		nombreText.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(nombreText);
+		nombreText.setColumns(10);
+		
+		apellidosText = new JTextField();
+		apellidosText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		apellidosText.setColumns(10);
+		apellidosText.setBounds(276, 151, 271, 36);
+		apellidosText.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(apellidosText);
+		
+		empresaTxt = new JTextField();
+		empresaTxt.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		empresaTxt.setColumns(10);
+		empresaTxt.setBounds(276, 198, 271, 36);
+		empresaTxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(empresaTxt);
+		
+		cargoTxt = new JTextField();
+		cargoTxt.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		cargoTxt.setColumns(10);
+		cargoTxt.setBounds(276, 292, 271, 36);
+		cargoTxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(cargoTxt);
+		
+		userTxt = new JTextField();
+		userTxt.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		userTxt.setColumns(10);
+		userTxt.setBounds(276, 339, 271, 36);
+		userTxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(userTxt);
+		
+		contraTxt = new JPasswordField();
+		contraTxt.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		contraTxt.setColumns(10);
+		contraTxt.setBounds(276, 391, 271, 36);
+		contraTxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(contraTxt);
+		
+		contraTxt2 = new JPasswordField();
+		contraTxt2.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		contraTxt2.setColumns(10);
+		contraTxt2.setBounds(276, 438, 271, 36);
+		contraTxt2.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(contraTxt2);
+		
+		emailTxt = new JTextField();
+		emailTxt.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		emailTxt.setColumns(10);
+		emailTxt.setBounds(276, 485, 271, 36);
+		emailTxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		panel.add(emailTxt);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(276, 245, 271, 36);
+		comboBox.addItem("Tecnología");
+		comboBox.addItem("Salud");
+		comboBox.addItem("Eduación");
+		comboBox.addItem("Comercio");
+		comboBox.addItem("Otro");
+		panel.add(comboBox);
+		
+		JLabel lblmbitoDeLa = new JLabel("Ámbito de la Empresa");
+		lblmbitoDeLa.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblmbitoDeLa.setBounds(84, 247, 169, 29);
+		panel.add(lblmbitoDeLa);
+		
+		JButton registro = new JButton("Registrarse");
+		registro.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		registro.setBackground(new Color(47, 115, 176));
+		registro.setForeground(Color.white);
+		registro.setBounds(238, 560, 182, 44);
+		panel.add(registro);
+		registro.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nombre = new String(nombreText.getText());
+				String apellido = new String(apellidosText.getText());
+				String empresa = new String(empresaTxt.getText());
+				String ambito = new String(comboBox.getSelectedItem().toString());
+				String cargo = new String(cargoTxt.getText());
+				String usuario = new String(userTxt.getText());
+				String textContra = new String(contraTxt.getPassword());
+				String textContra2=new String(contraTxt2.getPassword());
+				String correo = new String(emailTxt.getText());
+				boolean c1=false,c2=false,c3=false,c4=false,c5=false,c6=false,c7=false,c8=false,c9=false;
+				
+				if (nombreText.getText().matches("^[\\p{L} ]+$")) {
+					nombreText.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c1=true;
+				}
+				else {
+					nombreText.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Solo se admiten letras y espacios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (apellidosText.getText().matches("^[\\p{L} ]+$")) {
+					apellidosText.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c2=true;
+				}
+				else {
+					apellidosText.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Solo se admiten letras y espacios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (empresaTxt.getText().matches("^[\\p{L}\\p{Nd} ]+$")) {
+					empresaTxt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c3=true;
+				}
+				else {
+					empresaTxt.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Solo se admiten letras, numeros y espacios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (comboBox.getSelectedIndex()>=0) {
+					comboBox.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c4=true;
+				}
+				else {
+					comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+				}
+				if (cargoTxt.getText().matches("^[\\p{L} ]+$")) {
+					cargoTxt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c5=true;
+				}
+				else {
+					cargoTxt.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Solo se admiten letras y espacios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (userTxt.getText().matches("^[\\p{L}\\p{Nd} ]+$")) {
+					userTxt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c6=true;
+				}
+				else {
+					userTxt.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Solo se admiten letras, numeros y espacios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (textContra.matches("^(?=\\S+$)(?=.*\\W)[\\p{L}\\p{Nd}\\W]+$")) {
+					contraTxt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c7=true;
+				}
+				else {
+					contraTxt.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Solo se admiten letras, numeros y al menos un caracter especial", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (textContra2.equals(textContra)) {
+					contraTxt2.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c8=true;
+				}
+				else {
+					contraTxt.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "La contraseña no coincide", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (emailTxt.getText().matches("^\\S+$")) {
+					emailTxt.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+					c9=true;
+				}
+				else {
+					emailTxt.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					JOptionPane.showMessageDialog(null, "Elimine los espacios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (c1 && c2 && c3 && c4 && c5 && c6 && c7 && c8 && c9) {
+					try {
+						functions.escritura(nombre, apellido, empresa, ambito, cargo, usuario, textContra, correo);
+						JOptionPane.showMessageDialog(null, "Registro exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+						login();
+					} catch (IOException e1) {
+						System.out.println("Ocurrio un error"+e1.getMessage());
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+			
+		});
+		frame.setVisible(true);
+		frame.revalidate();
+		frame.repaint();
+		
+		
+		
+		}
+	
+
 
 }
