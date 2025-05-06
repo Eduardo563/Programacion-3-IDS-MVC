@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controllers.HomeController;
 import models.AuthModel;
 
 public class AuthView {
@@ -194,7 +195,9 @@ public class AuthView {
 					boolean autenticacion = functions.autenticar(usuario, textContra);
 					if (autenticacion) {
 						JOptionPane.showMessageDialog(null, "Ingreso exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-						home();
+						HomeController inicio = new HomeController();
+						frame.dispose();
+						inicio.home();
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
