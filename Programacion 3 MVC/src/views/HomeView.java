@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import controllers.ProductController;
+
 public class HomeView {
 	
 	private JFrame frame;
@@ -174,12 +176,25 @@ public class HomeView {
 		JButton btnConfiguracion = new JButton("Configuracion");
 		btnConfiguracion.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		panel_6.add(btnConfiguracion);
-		btnRegistros.addActionListener(new ActionListener() {
+		btnConfiguracion.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Accedido a Configuracion","Ingreso",JOptionPane.INFORMATION_MESSAGE);
 				
+			}
+			
+		});
+		JButton btnProductos = new JButton("Productos");
+		btnProductos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		panel_6.add(btnProductos);
+		btnProductos.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				ProductController productos = new ProductController();
+				productos.obtenerProductos();
 			}
 			
 		});
