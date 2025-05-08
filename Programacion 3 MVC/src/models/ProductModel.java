@@ -3,6 +3,7 @@ package models;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +49,10 @@ public class ProductModel {
 		try {
 			for (Object producto:listaObjetos) {
 				JSONObject objeto = (JSONObject) producto;
-				int id = (int) ((Long)objeto.get("id")).intValue();
+				int id = Integer.parseInt(objeto.get("id").toString());
 				String nombre = (String)objeto.get("title");
-				double precio = (double)objeto.get("price");
-				int stock = (int) ((Long)objeto.get("stock")).intValue();
+				double precio = Double.parseDouble(objeto.get("price").toString());
+				int stock = Integer.parseInt(objeto.get("stock").toString());
 				datosProductos.add(new Producto(id,nombre,precio,stock));
 				
 			}
@@ -62,7 +63,56 @@ public class ProductModel {
 		}
 		return datosProductos;
 	}
-
 	
+	public void remove()
+	{
+		
+		JSONArray productList = leerJson();
+		
+		String url = AuthModel.class.getResource("/archivos/products.json").getPath();
+        
+		 productList.remove(0); 
+         
+         System.out.println(productList); 
+         
+         // Write the JSON array to a file
+         try (FileWriter file = new FileWriter(url)) {
+             file.write(productList.toString()); // Use toString(2) for pretty printing
+             file.flush();
+             file.close();
+             System.out.println("JSON array written to file successfully!");
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+	}
+
+	public boolean addProduct(int id,String n, double p,int s)
+	{
+		
+		JSONArray productList = leerJson();
+		JSONObject jsonObject = new JSONObject();
+		
+		//String url = AuthModel.class.getResource("src/archivos/products.json").getPath();
+		
+		
+		//jsonObject.put("name", n);
+		jsonObject.put("id", id);
+		jsonObject.put("title", n);
+		jsonObject.put("price", p);
+		jsonObject.put("stock",s);
+		
+		productList.add(jsonObject);
+		
+		try (FileWriter file = new FileWriter("src/archivos/products.json")) {
+            file.write(productList.toString()); // Use toString(2) for pretty printing
+            file.flush();
+            file.close();
+            System.out.println("JSON array written to file successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		return false;
+	}
 
 }

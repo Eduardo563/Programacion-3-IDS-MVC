@@ -20,5 +20,9 @@ public class ProductController {
 		List<Producto>obtenidos =modelo.obtenerDatos(modelo.leerJson());
 		vista.productos(obtenidos);
 	}
+	
+	public void añadir() {
+		vista.add();
+	}
 
 }
