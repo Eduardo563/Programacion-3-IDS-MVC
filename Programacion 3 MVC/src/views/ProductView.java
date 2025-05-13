@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,17 +74,35 @@ public class ProductView {
 			
 		});
 		
-		String [] columnas = {"ID","Nombre","Precio","Stock"};
-		Object[][] datos = new Object[productosRecibidos.size()][4]; 
+		String [] columnas = {"ID","Nombre","Precio","Stock","Accion"};
+		Object[][] datos = new Object[productosRecibidos.size()][5]; 
 		for (int i = 0; i < productosRecibidos.size(); i++) {
 		  Producto p = productosRecibidos.get(i);
 		  datos[i][0] = p.getId();
 		  datos[i][1] = p.getNombre();
 		  datos[i][2] = p.getPrecio();
 		  datos[i][3] = p.getStock();
+		  datos[i][4] = "Eliminar";
 		}
 		JTable tabla = new JTable();
 		tabla.setModel(new DefaultTableModel(datos, columnas));
+		tabla.setDefaultEditor(Object.class, null); 
+		
+		tabla.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        int fila = tabla.rowAtPoint(e.getPoint());
+		        int columna = tabla.columnAtPoint(e.getPoint());
+		        if (columna == 4) {
+		            ProductController pc = new ProductController();
+		            int idProducto = (Integer) tabla.getValueAt(fila, 0);
+		            pc.eliminar(idProducto);
+		            pc.recargarTabla(tabla);
+		            
+		        }
+		    }
+		});
+		
 		JScrollPane scroll = new JScrollPane(tabla);
 		panel.add(scroll,BorderLayout.CENTER);
 		
@@ -179,6 +199,20 @@ public class ProductView {
 			
 		});
 		añadir.setVisible(true);
+	}
+	
+	public void actualizarTabla(List<Producto> productosRecibidos,JTable tabla) {
+		String [] columnas = {"ID","Nombre","Precio","Stock","Accion"};
+		Object[][] datos = new Object[productosRecibidos.size()][5]; 
+		for (int i = 0; i < productosRecibidos.size(); i++) {
+		  Producto p = productosRecibidos.get(i);
+		  datos[i][0] = p.getId();
+		  datos[i][1] = p.getNombre();
+		  datos[i][2] = p.getPrecio();
+		  datos[i][3] = p.getStock();
+		  datos[i][4] = "Eliminar";
+		}
+		tabla.setModel(new DefaultTableModel(datos, columnas));
 	}
 
 }

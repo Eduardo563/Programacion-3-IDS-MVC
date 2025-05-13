@@ -64,19 +64,24 @@ public class ProductModel {
 		return datosProductos;
 	}
 	
-	public void remove()
+	public void remove(int id)
 	{
 		
 		JSONArray productList = leerJson();
 		
-		String url = AuthModel.class.getResource("/archivos/products.json").getPath();
-        
-		 productList.remove(0); 
+		for(int i=0;i<productList.size();i++) {
+			JSONObject producto = (JSONObject) ( productList).get(i);
+			int idBuscar = Integer.parseInt(producto.get("id").toString());
+			if (idBuscar == id) {
+				productList.remove(i);
+				break;
+			}
+		}
          
          System.out.println(productList); 
          
          // Write the JSON array to a file
-         try (FileWriter file = new FileWriter(url)) {
+         try (FileWriter file = new FileWriter("src/archivos/products.json")) {
              file.write(productList.toString()); // Use toString(2) for pretty printing
              file.flush();
              file.close();

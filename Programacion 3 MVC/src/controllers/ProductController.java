@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import javax.swing.JTable;
+
 import models.ProductModel;
 import models.Producto;
 import views.ProductView;
@@ -23,6 +25,15 @@ public class ProductController {
 	
 	public void añadir() {
 		vista.add();
+	}
+	
+	public void eliminar(int id) {
+		modelo.remove(id);
+	}
+	
+	public void recargarTabla(JTable tabla) {
+		List<Producto>obtenidos =modelo.obtenerDatos(modelo.leerJson());
+		vista.actualizarTabla(obtenidos, tabla);
 	}
 
 }
