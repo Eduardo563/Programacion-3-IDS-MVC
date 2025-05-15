@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controllers.ProductController;
+import controllers.UserController;
 
 public class HomeView {
 	
@@ -153,8 +154,9 @@ public class HomeView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Accedido a Usuarios","Ingreso",JOptionPane.INFORMATION_MESSAGE);
-				
+				frame.dispose();
+				UserController uc = new UserController();
+				uc.llamarUsers();
 			}
 			
 		});
