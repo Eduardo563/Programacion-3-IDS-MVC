@@ -20,5 +20,8 @@ public class UserController {
 		ArrayList<User> usuarios = modelo.ObtenerUsers();
 		vista.vistaUsuarios(usuarios);
 	}
+	public void agregarUser() {
+		vista.add();
+	}
 
 }
