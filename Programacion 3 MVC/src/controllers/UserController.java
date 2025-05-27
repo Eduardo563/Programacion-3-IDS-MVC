@@ -23,5 +23,11 @@ public class UserController {
 	public void agregarUser() {
 		vista.add();
 	}
+	
+	public void update(int id,String name, String email, String role, String phone)
+	{
+		vista.formUpdate(id,name,  email,  role,  phone);
+	}
+
 
 }

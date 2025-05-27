@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -19,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.HomeController;
+import controllers.ProductController;
 import controllers.UserController;
 import models.User;
 import models.UserModel;
@@ -67,6 +70,7 @@ public class UserView {
 			
 		});
 		
+		
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.setForeground(new Color(0, 64, 128));
 		btnNewButton.setBackground(Color.white);
@@ -85,8 +89,8 @@ public class UserView {
 			
 		});
 		
-		String[] campos = {"ID","Nombre","Email","rol","phone"};
-		Object[][] datos = new Object[infoUsers.size()][5]; 
+		String[] campos = {"ID","Nombre","Email","rol","phone","Accion"};
+		Object[][] datos = new Object[infoUsers.size()][6]; 
 		for (int i=0; i<infoUsers.size();i++) {
 			User user = infoUsers.get(i);
 			datos[i][0] = user.getId();
@@ -94,11 +98,31 @@ public class UserView {
 			datos[i][2] = user.getEmail();
 			datos[i][3] = user.getRole();
 			datos[i][4] = user.getPhone();
+			datos[i][5] = "Actualizar";
+			
 		}
 		
 		DefaultTableModel modeloTabla = new DefaultTableModel(datos,campos);
 		JTable tablaUsers = new JTable(modeloTabla);
 		panelPrin.add(tablaUsers);
+		
+		tablaUsers.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        int fila = tablaUsers.rowAtPoint(e.getPoint());
+		        int columna = tablaUsers.columnAtPoint(e.getPoint());
+		        if (columna == 5) {
+		            UserController uc = new UserController();
+		            int idProducto = (Integer) tablaUsers.getValueAt(fila, 0);
+		            String name = (String) tablaUsers.getValueAt(fila, 1);
+		            String email = (String) tablaUsers.getValueAt(fila,2);
+		            String role = (String) tablaUsers.getValueAt(fila, 3);
+		            String phone = (String) tablaUsers.getValueAt(fila, 4);
+		            uc.update(idProducto, name, email, role, phone);
+		            
+		        }
+		    }
+		});
 		
 		JScrollPane scrollBar = new JScrollPane(tablaUsers);
 		scrollBar.setBounds(200, 180, 600, 327);
@@ -203,6 +227,107 @@ public class UserView {
 		addU.setVisible(true);
 		
 	}
+	
+	public void formUpdate(int id,String name, String email, String role, String phone) {
+		JFrame addU = new JFrame( );
+		addU.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addU.setBounds(100, 100, 1001, 700);
+		addU.setLayout(null);
+		JPanel panelPrin = new JPanel();
+		panelPrin.setBounds(186, 73, 438, 423);
+		panelPrin.setLayout(null);
+		panelPrin.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelPrin.setBackground(new Color(147,201,255));
+		
+		addU.add(panelPrin);
+		
+		JTextField textField;
+		JTextField textField_1;
+		JTextField textField_2;
+		JTextField textField_3;
+		
+		JLabel lblNewLabel = new JLabel("Añadir Usuario");
+		lblNewLabel.setForeground(Color.blue);
+		lblNewLabel.setBackground(new Color(0, 128, 255));
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
+		lblNewLabel.setBounds(400, 11, 780, 62);
+		addU.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nombre:");
+		lblNewLabel_1.setBounds(48, 11, 90, 25);
+		lblNewLabel_1.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		panelPrin.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(44, 47, 337, 33);
+		textField.setText(name);
+		panelPrin.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Email:");
+		lblNewLabel_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		lblNewLabel_1_1.setBounds(48, 91, 86, 25);
+		panelPrin.add(lblNewLabel_1_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(48, 127, 333, 33);
+		textField_1.setText(email);
+		panelPrin.add(textField_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Telefono");
+		lblNewLabel_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		lblNewLabel_1_1_1.setBounds(48, 171, 86, 25);
+		panelPrin.add(lblNewLabel_1_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(48, 207, 333, 33);
+		textField_2.setText(phone);
+		panelPrin.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(48, 298, 333, 33);
+		textField_3.setText(role);
+		panelPrin.add(textField_3);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("rol:");
+		lblNewLabel_1_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		lblNewLabel_1_1_1_1.setBounds(48, 262, 86, 25);
+		panelPrin.add(lblNewLabel_1_1_1_1);
+		
+		
+		JButton btnNewButton = new JButton("Actualizar");
+		btnNewButton.setBackground(new Color(0, 128, 255));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		btnNewButton.setBounds(48, 361, 333, 51);
+		btnNewButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nombre = textField.getText();
+				String email = textField_1.getText();
+				String role = textField_3.getText();
+				String telefono = textField_2.getText();
+				
+				UserModel um = new UserModel();
+				if (um.update(id,nombre, email, telefono, role)) {
+					addU.dispose();
+					UserController uc = new UserController();
+					uc.llamarUsers();
+				}
+				
+				
+			}
+			
+		});
+		panelPrin.add(btnNewButton);
+		addU.setVisible(true);
+		
+	}
+	
 	
 
 }
