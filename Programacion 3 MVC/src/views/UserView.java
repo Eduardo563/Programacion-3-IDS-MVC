@@ -113,6 +113,7 @@ public class UserView {
 		        int columna = tablaUsers.columnAtPoint(e.getPoint());
 		        if (columna == 5) {
 		            UserController uc = new UserController();
+		            
 		            int idProducto = (Integer) tablaUsers.getValueAt(fila, 0);
 		            String name = (String) tablaUsers.getValueAt(fila, 1);
 		            String email = (String) tablaUsers.getValueAt(fila,2);
