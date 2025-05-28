@@ -114,13 +114,20 @@ public class UserView {
 		        if (columna == 5) {
 		            UserController uc = new UserController();
 		            
-		            int idProducto = (Integer) tablaUsers.getValueAt(fila, 0);
+		            int idUser = (Integer) tablaUsers.getModel().getValueAt(fila, 0);
+		            
 		            String name = (String) tablaUsers.getValueAt(fila, 1);
 		            String email = (String) tablaUsers.getValueAt(fila,2);
 		            String role = (String) tablaUsers.getValueAt(fila, 3);
 		            String phone = (String) tablaUsers.getValueAt(fila, 4);
-		            uc.update(idProducto, name, email, role, phone);
-		            
+		        
+		            User usuario=null;
+		            for(User u :infoUsers) {
+		            	if(u.getId()==(idUser)) {
+		            		usuario=u;
+		            	}
+		            }
+		            uc.update(usuario);
 		        }
 		    }
 		});
@@ -229,7 +236,7 @@ public class UserView {
 		
 	}
 	
-	public void formUpdate(int id,String name, String email, String role, String phone) {
+	public void formUpdate(User user) {
 		JFrame addU = new JFrame( );
 		addU.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addU.setBounds(100, 100, 1001, 700);
@@ -247,7 +254,7 @@ public class UserView {
 		JTextField textField_2;
 		JTextField textField_3;
 		
-		JLabel lblNewLabel = new JLabel("Añadir Usuario");
+		JLabel lblNewLabel = new JLabel("Actualizar Usuario");
 		lblNewLabel.setForeground(Color.blue);
 		lblNewLabel.setBackground(new Color(0, 128, 255));
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
@@ -261,7 +268,7 @@ public class UserView {
 		
 		textField = new JTextField();
 		textField.setBounds(44, 47, 337, 33);
-		textField.setText(name);
+		textField.setText(user.getNombre());
 		panelPrin.add(textField);
 		textField.setColumns(10);
 		
@@ -273,7 +280,7 @@ public class UserView {
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		textField_1.setBounds(48, 127, 333, 33);
-		textField_1.setText(email);
+		textField_1.setText(user.getEmail());
 		panelPrin.add(textField_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Telefono");
@@ -284,13 +291,13 @@ public class UserView {
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(48, 207, 333, 33);
-		textField_2.setText(phone);
+		textField_2.setText(user.getPhone());
 		panelPrin.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
 		textField_3.setBounds(48, 298, 333, 33);
-		textField_3.setText(role);
+		textField_3.setText(user.getRole());
 		panelPrin.add(textField_3);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("rol:");
@@ -313,8 +320,13 @@ public class UserView {
 				String role = textField_3.getText();
 				String telefono = textField_2.getText();
 				
+				user.setNombre(nombre);
+				user.setEmail(email);
+				user.setRole(role);
+				user.setPhone(telefono);
+				
 				UserModel um = new UserModel();
-				if (um.update(id,nombre, email, telefono, role)) {
+				if (um.update(user)) {
 					addU.dispose();
 					UserController uc = new UserController();
 					uc.llamarUsers();
