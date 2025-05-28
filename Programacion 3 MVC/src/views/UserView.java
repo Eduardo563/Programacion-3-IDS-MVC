@@ -12,12 +12,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.HomeController;
@@ -64,6 +66,7 @@ public class UserView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				UserController uc = new UserController();
+				vistU.dispose();
 				uc.agregarUser();
 				
 			}
@@ -89,21 +92,28 @@ public class UserView {
 			
 		});
 		
-		String[] campos = {"ID","Nombre","Email","rol","phone","Accion"};
-		Object[][] datos = new Object[infoUsers.size()][6]; 
+		String[] campos = {"ID","Nombre","Email","rol","phone","Accion","Eliminar"};
+		Object[][] datos = new Object[infoUsers.size()][7]; 
 		for (int i=0; i<infoUsers.size();i++) {
+			
 			User user = infoUsers.get(i);
 			datos[i][0] = user.getId();
 			datos[i][1] = user.getNombre();
 			datos[i][2] = user.getEmail();
 			datos[i][3] = user.getRole();
 			datos[i][4] = user.getPhone();
-			datos[i][5] = "Actualizar";
+			datos[i][5] = "Actualizar 🖋️";
+			datos[i][6] = "Eliminar ❌";
 			
 		}
 		
 		DefaultTableModel modeloTabla = new DefaultTableModel(datos,campos);
 		JTable tablaUsers = new JTable(modeloTabla);
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int i = 0; i < tablaUsers.getColumnCount(); i++) {
+			tablaUsers.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+	        }
 		panelPrin.add(tablaUsers);
 		
 		tablaUsers.addMouseListener(new MouseAdapter() {
@@ -115,11 +125,6 @@ public class UserView {
 		            UserController uc = new UserController();
 		            
 		            int idUser = (Integer) tablaUsers.getModel().getValueAt(fila, 0);
-		            
-		            String name = (String) tablaUsers.getValueAt(fila, 1);
-		            String email = (String) tablaUsers.getValueAt(fila,2);
-		            String role = (String) tablaUsers.getValueAt(fila, 3);
-		            String phone = (String) tablaUsers.getValueAt(fila, 4);
 		        
 		            User usuario=null;
 		            for(User u :infoUsers) {
@@ -129,11 +134,24 @@ public class UserView {
 		            }
 		            uc.update(usuario);
 		        }
+		       if (columna==6) {
+		    	   int confirmacion=JOptionPane.showConfirmDialog(vistU, "¿Desea eliminar este usuario?",
+		   				"Confirmacion", JOptionPane.OK_CANCEL_OPTION,
+		   				JOptionPane.INFORMATION_MESSAGE);
+		    	   if(confirmacion==0) {
+		    		   UserController uc = new UserController();
+		    		   int idUser = (Integer) tablaUsers.getModel().getValueAt(fila, 0);
+				       
+			           vistU.dispose();
+			           uc.delete(idUser);
+		    	   }
+
+		       }
 		    }
 		});
 		
 		JScrollPane scrollBar = new JScrollPane(tablaUsers);
-		scrollBar.setBounds(200, 180, 600, 327);
+		scrollBar.setBounds(40, 180, 900, 327);
 		panelPrin.add(scrollBar);
 		
 		vistU.setVisible(true);

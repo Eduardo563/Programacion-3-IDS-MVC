@@ -28,6 +28,12 @@ public class UserController {
 	{
 		vista.formUpdate(user);
 	}
+	
+	public void delete(int user_id)
+	{
+		modelo.delete(user_id);
+		llamarUsers();
+	}
 
 
 }
